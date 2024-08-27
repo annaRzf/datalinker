@@ -13,7 +13,7 @@ const PLExport = {
         $.ajax({
             url: pl_export_object.ajax_url,
             data: {
-                action: 'pl_exporter_fetch_data',
+                action: 'dl_exporter_fetch_data',
                 post_type: postType
             },
             type: 'post',

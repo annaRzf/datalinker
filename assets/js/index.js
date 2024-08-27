@@ -1,9 +1,9 @@
 let PLExport, PLImport;
-import(`./pl-export.js?ver=${pl_object.version}`)
+import(`./dl-export.js?ver=${dl_object.version}`)
   .then(module => {
     PLExport = module.default;
 });
-import(`./pl-import.js?ver=${pl_object.version}`)
+import(`./dl-import.js?ver=${dl_object.version}`)
   .then(module => {
     PLImport = module.default;
 });

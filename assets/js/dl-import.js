@@ -5,7 +5,7 @@ const PLImport = {
         PLImport.formSection.on('submit', function(e){
             e.preventDefault();
             let formData = new FormData(this);
-            formData.append('action', 'pl_importer_insert_data');
+            formData.append('action', 'dl_importer_insert_data');
             PLImport.uploadFile(formData);
         });
     },
