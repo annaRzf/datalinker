@@ -1,0 +1,23 @@
+.dl-header{
+    margin-left: -20px;
+    position: fixed;
+    top: auto;
+    width: 100%;
+    z-index: 6;
+    .dl-header-inner-wrapper{
+        background: $primary-color;
+        box-shadow: 0 1px 4px 0 $grey-color;
+        float: left;
+        padding: 20px 0 20px 20px;
+        width: 100%;
+        box-sizing: border-box;
+        -o-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+        h2{
+            color: $white;
+            font-size: 20px;
+            font-weight: 500;
+        }
+    }
+}
