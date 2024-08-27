@@ -3,6 +3,7 @@
 class CM_Importer_Exporter
 {
     static $instance = false;
+    static private $datalinker_pages = array('dl-export','dl-import');
 
     private function __construct()
     {
@@ -14,25 +15,35 @@ class CM_Importer_Exporter
     
     public function enqueue_scripts()
     {
+        $page = isset( $_GET[ 'page' ] ) ? wpie_sanitize_field( $_GET[ 'page' ] ) : "";
+
         $version = time();
-        wp_enqueue_script( 'pl-index', plugins_url( '../../assets/js/index.js', __FILE__ ), array('jquery'), $version, true );
-        wp_enqueue_script( 'pl-export', plugins_url( '../../assets/js/pl-export.js', __FILE__ ), array('jquery'), $version, true );
-        wp_localize_script( 'pl-export', 'pl_export_object', array(
+        // include the styles only on the plugin pages
+        if ( !in_array($page, self::$datalinker_pages) ) {
+            return;
+        }
+        wp_enqueue_style( 'dl-style', plugins_url( '../../assets/css/style.css', __FILE__ ), array(), $version );
+        // include the scripts
+        wp_enqueue_script( 'dl-index', plugins_url( '../../assets/js/index.js', __FILE__ ), array('jquery'), $version, true );
+        wp_enqueue_script( 'dl-export', plugins_url( '../../assets/js/dl-export.js', __FILE__ ), array('jquery'), $version, true );
+        // add font awesome
+        wp_enqueue_script( 'font-awesome', 'https://kit.fontawesome.com/feb19a29e3.js');
+        wp_localize_script( 'dl-export', 'pl_export_object', array(
             'ajax_url' => admin_url( 'admin-ajax.php' ),
         ) );
-        wp_enqueue_script( 'pl-import', plugins_url( '../../assets/js/pl-import.js', __FILE__ ), array('jquery'), $version, true );
-        wp_localize_script( 'pl-import', 'pl_import_object', array(
+        wp_enqueue_script( 'dl-import', plugins_url( '../../assets/js/dl-import.js', __FILE__ ), array('jquery'), $version, true );
+        wp_localize_script( 'dl-import', 'pl_import_object', array(
             'ajax_url' => admin_url( 'admin-ajax.php' ),
         ) );
         // localize with the version
-        wp_localize_script('pl-index', 'pl_object', array(
+        wp_localize_script('dl-index', 'dl_object', array(
             'version' => $version
         ));
     }
 
     public function initialize_module_tag($tag, $handle, $src) {
         // if not your script, do nothing and return original $tag
-        $scirpt_modules = array('pl-export','pl-import');
+        $scirpt_modules = array('dl-export','dl-import');
         if ( !in_array($handle,$scirpt_modules) ) {
             return $tag;
         }
@@ -43,18 +54,18 @@ class CM_Importer_Exporter
 
     private function initiliaze_ajax_actions()
     {
-        add_action('wp_ajax_pl_exporter_fetch_data', array($this,'fetch_data'));
-        add_action('wp_ajax_pl_importer_insert_data', array($this,'insert_data'));
+        add_action('wp_ajax_dl_exporter_fetch_data', array($this,'fetch_data'));
+        add_action('wp_ajax_dl_importer_insert_data', array($this,'insert_data'));
     }
 
     public function admin_menu()
     {
         // add top level menu page
         add_menu_page(
-            'PL Importer/Exporter', // page title
-            'PL Importer/Exporter', // menu title
+            'DataLinkeR', // page title
+            'DataLinkeR', // menu title
             'manage_options', // capability
-            'pl-export', // menu slug
+            'dl-export', // menu slug
             array( $this, 'export_menu'), // function
             'dashicons-admin-generic', // icon url
             54 // position
@@ -62,20 +73,20 @@ class CM_Importer_Exporter
     
         // add submenu pages
         add_submenu_page(
-            'pl-export', // parent slug
+            'dl-export', // parent slug
             'Export Data', // page title
             'Export Data', // menu title
             'manage_options', // capability
-            'pl-export', // menu slug
+            'dl-export', // menu slug
             array( $this, 'export_menu') // function
         );
     
         add_submenu_page(
-            'pl-export', // parent slug
+            'dl-export', // parent slug
             'Import Data', // page title
             'Import Data', // menu title
             'manage_options', // capability
-            'pl-import', // menu slug
+            'dl-import', // menu slug
             array( $this, 'import_menu') // function
         );
     }
