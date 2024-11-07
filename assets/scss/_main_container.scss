@@ -88,7 +88,22 @@
                 margin-top: 20px;
                 .step-title{
                     border-bottom: 1px solid $light-grey-color;
-                    padding: 0 20px;
+                    padding-left: 20px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    .preview-section{
+                        margin: 1em 0;
+                        p{
+                            border-radius: 16px;
+                            padding: 0 10px;
+                            background-color: $light-green-color;
+                            display: none;
+                        }
+                        button{
+                            padding: 10px;
+                        }
+                    }
                 }
                 .inner-section{
                     padding: 20px 0 20px 20px;

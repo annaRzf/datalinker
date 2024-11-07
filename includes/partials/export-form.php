@@ -23,7 +23,16 @@ $post_types = get_post_types( array( 'public' => true ), 'objects' );
                 </div>
                 <fieldset class="form-step">
                     <div class="step-title">
-                        <h2>Data information</h2>
+                        <div class="title">
+                            <h2>Data information</h2>
+                        </div>
+                        <div class="preview-section">
+                            <p>No post matches your criteria yet</p>
+                            <button class="dl-action-button">
+                                <i class="fa-solid fa-eye"></i>
+                                Preview posts <br> (3 records)
+                            </button>
+                        </div>
                     </div>
                     <div class="inner-section">
                         <div class="form-section">
@@ -53,9 +62,9 @@ $post_types = get_post_types( array( 'public' => true ), 'objects' );
                                 <button class="dl-action-button outlined">Add rule group</button>
                             </div>
                         </div>
-                        <div class="form-section post-info">
+                        <!-- <div class="form-section post-info">
                             <p>No post matches your criteria yet</p>
-                        </div>
+                        </div> -->
                     </div>
                     <input type="button" name="next" class="next dl-action-button" value="Next" data-bitwarden-clicked="1">
                 </fieldset>
