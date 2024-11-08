@@ -15,7 +15,7 @@ class CM_Importer_Exporter
     
     public function enqueue_scripts()
     {
-        $page = isset( $_GET[ 'page' ] ) ? wpie_sanitize_field( $_GET[ 'page' ] ) : "";
+        $page = isset( $_GET[ 'page' ] ) ? sanitize_text_field( $_GET[ 'page' ] ) : "";
 
         $version = time();
         // include the styles only on the plugin pages

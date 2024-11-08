@@ -30,7 +30,7 @@ $post_types = get_post_types( array( 'public' => true ), 'objects' );
                             <p>No post matches your criteria yet</p>
                             <button class="dl-action-button">
                                 <i class="fa-solid fa-eye"></i>
-                                Preview posts <br> (3 records)
+                                Preview posts (3 records)
                             </button>
                         </div>
                     </div>
@@ -47,19 +47,25 @@ $post_types = get_post_types( array( 'public' => true ), 'objects' );
                             </div>
                             <div class="form-group">
                                 <label for="post_type">Add rules filters to the data to export</label>
-                                <div class="group-fields">
-                                    <select name="post_type" id="post_type" class="form-control">
-                                        <option value="">Select Element</option>
-                                    </select>
-                                    <select name="post_type" id="post_type" class="form-control">
-                                        <option value="">Select Rule</option>
-                                    </select>
-                                    <input type="text" name="" id="" placeholder="Value">
-                                    <button class="dl-action-button outlined">and</button>
-                                    <button class="dl-action-button rounded outlined"><i class="fa-solid fa-trash"></i></button>
+                                <div class="rule-group-container">
+                                    <div class="rule-group">
+                                        <div class="rule-rows">
+                                            <div class="group-fields rule-row">
+                                                <select name="post_type" id="post_type" class="form-control">
+                                                    <option value="">Select Element</option>
+                                                </select>
+                                                <select name="post_type" id="post_type" class="form-control">
+                                                    <option value="">Select Rule</option>
+                                                </select>
+                                                <input type="text" name="" id="" placeholder="Value">
+                                                <button class="dl-action-button outlined add-rule-row">and</button>
+                                                <button class="dl-action-button rounded outlined remove-rule-row" style="display:none;"><i class="fa-solid fa-trash"></i></button>
+                                            </div>
+                                        </div>
+                                        <h4 class="or-statement">or</h4>
+                                    </div>
                                 </div>
-                                <h4>or</h4>
-                                <button class="dl-action-button outlined">Add rule group</button>
+                                <button class="dl-action-button outlined add-rule-group">Add rule group</button>
                             </div>
                         </div>
                         <!-- <div class="form-section post-info">
