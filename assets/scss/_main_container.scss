@@ -92,18 +92,6 @@
                     display: flex;
                     align-items: center;
                     justify-content: space-between;
-                    .preview-section{
-                        margin: 1em 0;
-                        p{
-                            border-radius: 16px;
-                            padding: 0 10px;
-                            background-color: $light-green-color;
-                            display: none;
-                        }
-                        button{
-                            padding: 10px;
-                        }
-                    }
                 }
                 .inner-section{
                     padding: 20px 0 20px 20px;
@@ -141,7 +129,7 @@
                         color: $primary-color;
                     }
                     .group-fields{
-                        display: inline-flex;
+                        display: flex;
                         gap: 10px;
                         > select, > input{
                             flex: 1;

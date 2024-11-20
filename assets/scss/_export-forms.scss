@@ -1,0 +1,24 @@
+.preview-section{
+    margin: 1em 0;
+    p{
+        border-radius: 5px;
+        padding: 10px 20px;
+        background-color: $grey-color;
+        color: $white;
+    }
+    button{
+        display: none;
+        padding: 10px;
+        max-width: 100%;
+    }
+}
+.rule-rows {
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+    .rule-row{
+        .remove-rule-row.invisible{
+            visibility: hidden;
+        }
+    }
+}
