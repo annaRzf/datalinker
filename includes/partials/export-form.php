@@ -1,6 +1,7 @@
 <?php
 // get all post types
-$post_types = get_post_types( array( 'public' => true ), 'objects' );
+$dl_export = new DataLinkeRExport();
+$post_types = $dl_export->get_post_types();
 ?>
 <div class="dl-main-content">
     <div class="dl-header">
@@ -38,12 +39,9 @@ $post_types = get_post_types( array( 'public' => true ), 'objects' );
                         <div class="form-section">
                             <div class="form-group">
                                 <label for="post_type">Choose what data to export</label>
-                                <select name="post_type" id="post_type" class="form-control">
-                                    <option value="">Select post type</option>
-                                    <?php foreach ( $post_types as $post_type ) : ?>
-                                        <option value="<?php echo $post_type->name; ?>"><?php echo $post_type->label; ?></option>
-                                    <?php endforeach; ?>
-                                </select>
+                                <?php 
+                                    $dl_export->render_dropdown('post_type',$post_types);
+                                ?>
                             </div>
                             <div class="form-group">
                                 <label for="post_type">Add rules filters to the data to export</label>
@@ -59,7 +57,7 @@ $post_types = get_post_types( array( 'public' => true ), 'objects' );
                                                 </select>
                                                 <input type="text" name="" id="" placeholder="Value">
                                                 <button class="dl-action-button outlined add-rule-row">and</button>
-                                                <button class="dl-action-button rounded outlined remove-rule-row" style="display:none;"><i class="fa-solid fa-trash"></i></button>
+                                                <button class="dl-action-button rounded outlined remove-rule-row invisible"><i class="fa-solid fa-trash"></i></button>
                                             </div>
                                         </div>
                                         <h4 class="or-statement">or</h4>
@@ -68,9 +66,6 @@ $post_types = get_post_types( array( 'public' => true ), 'objects' );
                                 <button class="dl-action-button outlined add-rule-group">Add rule group</button>
                             </div>
                         </div>
-                        <!-- <div class="form-section post-info">
-                            <p>No post matches your criteria yet</p>
-                        </div> -->
                     </div>
                     <input type="button" name="next" class="next dl-action-button" value="Next" data-bitwarden-clicked="1">
                 </fieldset>
