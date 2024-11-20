@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name: Custom Data Importer/Exporter
+ * Plugin Name: DataLinkeR
  * Description: A high flexible import/export plugin for WordPress.
  * Version: 1.0.0
  * Author: Anna Razafindramiarina
@@ -15,9 +15,9 @@ if ( !function_exists( 'add_action' ) ) {
 
 defined( 'ABSPATH' ) or die( 'No script kiddies please! In other words GTFO.' );
 
-define( 'IMP_EXP__PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
+define( 'DATALINKER__PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 
-require_once( IMP_EXP__PLUGIN_DIR . 'includes/class/class-importer-exporter.php' );
+require_once DATALINKER__PLUGIN_DIR . 'includes/class/class-dl-general.php';
 
 // initialize the plugin
-CM_Importer_Exporter::getInstance();
+DataLinkeRGeneral::getInstance();
