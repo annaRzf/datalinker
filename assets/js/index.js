@@ -1,15 +1,19 @@
-let PLExport, PLImport;
+let DLGeneral, DLExport, DLImport;
 import(`./dl-export.js?ver=${dl_object.version}`)
   .then(module => {
-    PLExport = module.default;
+    DLExport = module.default;
+});
+import(`./dl-general.js?ver=${dl_object.version}`)
+  .then(module => {
+    DLGeneral = module.default;
 });
 import(`./dl-import.js?ver=${dl_object.version}`)
   .then(module => {
-    PLImport = module.default;
+    DLImport = module.default;
 });
 
 jQuery(document).ready(function($) {
-    // initialize importer and exporter
-    PLExport.init();
-    PLImport.init();
+    DLGeneral.init();
+    DLExport.init();
+    DLImport.init();
 });

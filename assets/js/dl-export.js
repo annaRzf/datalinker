@@ -1,36 +1,12 @@
-let $ = jQuery;
+let $
+if (typeof $ === 'undefined') {
+    $ = jQuery;
+}
 const PLExport = {
     formSection: $('#pl-export-form'),
     init: () => {
-        PLExport.formSection.on('submit', function(e){
-            e.preventDefault();
-            const postType = PLExport.formSection.find('select[name="post_type"]').val();
-            PLExport.fetchPosts(postType);
-        });
         // bind element
         PLExport.bindRuleBtn();
-    },
-    fetchPosts: (postType) => {
-        // send data through AJAX
-        $.ajax({
-            url: pl_export_object.ajax_url,
-            data: {
-                action: 'dl_exporter_fetch_data',
-                post_type: postType
-            },
-            type: 'post',
-            success: (response) => {
-                let csvData = response.data.csv_data;
-                let blob = new Blob([csvData], { type: 'text/csv;charset=utf-8;' });
-                let url = URL.createObjectURL(blob);
-                let downloadLink = $('<a></a>')
-                    .attr('href', url)
-                    .attr('download', response.data.file_name) // set the file name
-                    .appendTo(PLExport.formSection);
-                downloadLink[0].click();
-                downloadLink.remove();
-            }
-        })
     },
     bindRuleBtn: () => {
         // add rule row
@@ -40,7 +16,7 @@ const PLExport = {
             $(this).parents('.rule-rows').append(ruleRow);
             // if the number of rule row is more than one we add the remove button
             if($(this).parents('.rule-rows').find('.rule-row').length > 1){
-                ruleRow.find('.remove-rule-row').show();
+                ruleRow.find('.remove-rule-row').removeClass('invisible');
             }
 
         });
@@ -70,7 +46,7 @@ const PLExport = {
             $('.rule-group-container').append(ruleGroup);
             // if the number of rule group is more than one we add the remove button
             if($('.rule-group').length > 1){
-                ruleRow.find('.remove-rule-row').show();
+                ruleRow.find('.remove-rule-row').removeClass('invisible');
             }
         });
     }
