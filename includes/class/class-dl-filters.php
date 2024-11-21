@@ -55,8 +55,6 @@ final class DataLinkeRFilters
             $post_types_array[$post_type->name] = $post_type->label;
         }
     
-        $this->log_data($post_types_array);
-    
         return $post_types_array;
     }
 }
