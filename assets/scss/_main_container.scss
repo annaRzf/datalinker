@@ -118,6 +118,14 @@
                     display: grid;
                     margin-bottom: 15px;
                     width: 100%;
+                    transition: opacity 0.3s ease, height 0.3s ease;
+
+                    &.hidden {
+                        opacity: 0;
+                        height: 0;
+                        overflow: hidden;
+                        margin-bottom: 0;
+                    }
                     h4{
                         margin: 5px 0;
                     }
