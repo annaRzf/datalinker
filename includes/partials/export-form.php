@@ -2,6 +2,7 @@
 // get all post types
 $dl_export = new DataLinkeRExport();
 $post_types = $dl_export->get_post_types();
+$taxonomies = $dl_export->get_taxonomies();
 ?>
 <div class="dl-main-content">
     <div class="dl-header">
@@ -38,12 +39,18 @@ $post_types = $dl_export->get_post_types();
                     <div class="inner-section">
                         <div class="form-section">
                             <div class="form-group">
-                                <label for="post_type">Choose what data to export</label>
+                                <label for="post_type">Choose the data to export</label>
                                 <?php 
                                     $dl_export->render_dropdown('post_type',$post_types);
                                 ?>
                             </div>
-                            <div class="form-group">
+                            <div class="form-group hidden">
+                                <label for="taxonomy"> Choose the taxonomy to export</label>
+                                <?php 
+                                    $dl_export->render_dropdown('taxonomy',$taxonomies);
+                                ?>
+                            </div>
+                            <div class="form-group hidden">
                                 <label for="post_type">Add rules filters to the data to export</label>
                                 <div class="rule-group-container">
                                     <div class="rule-group">
