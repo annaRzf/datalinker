@@ -14,6 +14,14 @@
         border-radius: 10px;
         background: $white;
         box-shadow: 1px 3px 5px 1px #dfd9d9;
+        .dl-spinner {
+            display: none; /* Hide spinner by default */
+            position: absolute;
+            top: 70%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 10; /* Ensure spinner is on top */
+        }
         form.dl-form{
             position: relative;
             .step-info{
@@ -86,6 +94,12 @@
                 opacity: 1;
                 padding: 0 20px 20px 0;
                 margin-top: 20px;
+                &.loading {
+                    opacity: 0.5; /* Dim form when loading */
+                    +.dl-spinner {
+                        display: grid; /* Show spinner when loading */
+                    }
+                }
                 .step-title{
                     border-bottom: 1px solid $light-grey-color;
                     padding-left: 20px;
@@ -139,6 +153,7 @@
                     .group-fields{
                         display: flex;
                         gap: 10px;
+                        align-items: center;
                         > select, > input{
                             flex: 1;
                         }

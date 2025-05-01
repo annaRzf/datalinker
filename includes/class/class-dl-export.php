@@ -1,6 +1,6 @@
 <?php
 
-class DataLinkeRExport
+final class DataLinkeRExport
 {
     use DataLinkeRHTMLRender;
     use DataLinkeRHelpers;
@@ -48,6 +48,8 @@ class DataLinkeRExport
                 $icon = 'fa-solid fa-users';
             if( $key == 'taxonomies' )
                 $icon = 'fa-solid fa-tags';
+            if( $key == 'menus' )
+                $icon = 'fa-solid fa-bars';
             if( $key == 'page' || $key == 'post' )
                 $icon = 'fa-solid fa-file';
             
@@ -100,5 +102,127 @@ class DataLinkeRExport
         $taxonomies_array = array_merge([' ' => ['text' => 'Select a taxonomy']], $taxonomies_array);
 
         return $taxonomies_array;
+    }
+
+    public function get_post_rules($field_type = '')
+    {
+        // default rules
+        $rules = [
+            '' => ['text' => 'Select Rule'],
+            'equals' => ['text' => 'equals'],
+            'not_equals' => ['text' => "doesn't equal"],
+            'greater' => ['text' => 'greater than'],
+            'equals_or_greater' => ['text' => 'equal to or greater than'],
+            'less' => ['text' => 'less than'],
+            'equals_or_less' => ['text' => 'equal to or less than'],
+            'contains' => ['text' => 'contains'],
+            'not_contains' => ['text' => "doesn't contain"],
+            'is_empty' => ['text' => 'is empty'],
+            'is_not_empty' => ['text' => 'is not empty'],
+            'in' => ['text' => 'in'],
+            'not_in' => ['text' => 'not In'],
+        ];
+        // filter rules depending on the field type (text,id,array,...)
+        return $rules;
+    }
+
+    public function get_post_filters($post_type = '', $taxonomy = '')
+    {
+        // TODO: use filters available in WP_Query to build query
+        $filters = [];
+        // add post type specific filters
+        if ($post_type) {
+            switch ($post_type) {
+                case 'post':
+                    $post_filters = [
+                        'Standard' => [
+                            'p' => ['text' => 'ID'],
+                            'post_title' => ['text' => 'Title'],
+                            'post_content' => ['text' => 'Content'],
+                            'post_excerpt' => ['text' => 'Excerpt'],
+                            'post_date' => ['text' => 'Date'],
+                            'permalink' => ['text' => 'Permalink']
+                        ],
+                        'Taxonomies' => [
+                            'category' => ['text' => 'Category'],
+                            'post_tag' => ['text' => 'Tag']
+                        ],
+                        'Custom Fields' => [
+                            'meta_key' => ['text' => 'Meta Key'],
+                            'meta_value' => ['text' => 'Meta Value']
+                        ],
+                        'Author' => [
+                            'author' => ['text' => 'Author ID'],
+                            'author_name' => ['text' => 'Author Name'],
+                            'author_email' => ['text' => 'Author Email'],
+                            'author_username' => ['text' => 'Author Username']
+                        ]
+                    ];
+                    $filters = array_merge($filters, $post_filters);
+                    break;
+                case 'page':
+                    $page_filters = [
+                        'Standard' => [
+                            'p' => ['text' => 'ID'],
+                            'post_title' => ['text' => 'Title'],
+                            'post_content' => ['text' => 'Content'],
+                            'post_excerpt' => ['text' => 'Excerpt'],
+                            'post_date' => ['text' => 'Date'],
+                            'permalink' => ['text' => 'Permalink']
+                        ],
+                        'Custom Fields' => [
+                            'meta_key' => ['text' => 'Meta Key'],
+                            'meta_value' => ['text' => 'Meta Value']
+                        ],
+                        'Author' => [
+                            'author' => ['text' => 'Author ID'],
+                            'author_name' => ['text' => 'Author Name'],
+                            'author_email' => ['text' => 'Author Email'],
+                            'author_username' => ['text' => 'Author Username']
+                        ]
+                    ];
+                    $filters = array_merge($filters, $page_filters);
+                    break;
+                case 'users':
+                    $user_filters = [
+                        'Standard' => [
+                            'ID' => ['text' => 'ID'],
+                            'user_login' => ['text' => 'Username'],
+                            'user_email' => ['text' => 'Email'],
+                            'user_url' => ['text' => 'Website'],
+                            'user_registered' => ['text' => 'Registered'],
+                            'display_name' => ['text' => 'Display Name'],
+                            'first_name' => ['text' => 'First Name'],
+                            'last_name' => ['text' => 'Last Name'],
+                            'role' => ['text' => 'Role']
+                        ],
+                        'Meta' => [
+                            'meta_key' => ['text' => 'Meta Key'],
+                            'meta_value' => ['text' => 'Meta Value']
+                        ]
+                    ];
+                    $filters = array_merge($filters, $user_filters);
+                    break;
+                default:
+                    # code...
+                    break;
+            }
+        }
+        if( $taxonomy ){
+            $taxonomy_filters = [
+                'Standard' => [
+                    'term_id' => ['text' => 'ID'],
+                    'taxonomy' => ['text' => 'Name'],
+                    'slug' => ['text' => 'Slug'],
+                    'description' => ['text' => 'Description'],
+                    'count' => ['text' => 'Count']
+                ],
+            ];
+            $filters = array_merge($filters, $taxonomy_filters);
+        }
+        // add default option
+        $filters = array_merge(['' => ['' => ['text' => 'Select an element']]], $filters);
+
+        return $filters;
     }
 }

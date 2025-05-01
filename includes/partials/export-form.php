@@ -1,4 +1,5 @@
 <?php
+defined( 'ABSPATH' ) or die( 'No script kiddies please! In other words GTFO.' );
 // get all post types
 $dl_export = new DataLinkeRExport();
 $post_types = $dl_export->get_post_types();
@@ -50,32 +51,14 @@ $taxonomies = $dl_export->get_taxonomies();
                                     $dl_export->render_dropdown('taxonomy',$taxonomies);
                                 ?>
                             </div>
-                            <div class="form-group hidden">
-                                <label for="post_type">Add rules filters to the data to export</label>
-                                <div class="rule-group-container">
-                                    <div class="rule-group">
-                                        <div class="rule-rows">
-                                            <div class="group-fields rule-row">
-                                                <select name="post_type" id="post_type" class="form-control">
-                                                    <option value="">Select Element</option>
-                                                </select>
-                                                <select name="post_type" id="post_type" class="form-control">
-                                                    <option value="">Select Rule</option>
-                                                </select>
-                                                <input type="text" name="" id="" placeholder="Value">
-                                                <button class="dl-action-button outlined add-rule-row">and</button>
-                                                <button class="dl-action-button rounded outlined remove-rule-row invisible"><i class="fa-solid fa-trash"></i></button>
-                                            </div>
-                                        </div>
-                                        <h4 class="or-statement">or</h4>
-                                    </div>
-                                </div>
-                                <button class="dl-action-button outlined add-rule-group">Add rule group</button>
+                            <div class="form-group hidden" id="export-filters">
+                                
                             </div>
                         </div>
                     </div>
                     <input type="button" name="next" class="next dl-action-button" value="Next" data-bitwarden-clicked="1">
                 </fieldset>
+                <div class="dl-spinner"></div>
             </form>
         </div>
     </div>

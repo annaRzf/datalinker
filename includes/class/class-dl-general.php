@@ -6,6 +6,7 @@ require_once DATALINKER__PLUGIN_DIR . 'includes/trait/trait-dl-html-render.php';
 require_once DATALINKER__PLUGIN_DIR . 'includes/trait/trait-dl-helpers.php';
 require_once DATALINKER__PLUGIN_DIR . 'includes/class/class-dl-export.php';
 require_once DATALINKER__PLUGIN_DIR . 'includes/class/class-dl-filters.php';
+require_once DATALINKER__PLUGIN_DIR . 'includes/class/class-dl-ajax-calls.php';
 final class DataLinkeRGeneral
 {
     static $instance = false;
@@ -19,6 +20,8 @@ final class DataLinkeRGeneral
 
         // Initialize DataLinkeRFilters
         new DataLinkeRFilters();
+        // Initialize DataLinkeRAjax
+        new DataLinkeRAjax();
     }
     
     public function enqueue_scripts()
@@ -45,8 +48,9 @@ final class DataLinkeRGeneral
         ));
         // export script
         wp_enqueue_script( 'dl-export', plugins_url( '../../assets/js/dl-export.js', __FILE__ ), array('jquery'), $version, true );
-        wp_localize_script( 'dl-export', 'pl_export_object', array(
-            'ajax_url' => admin_url( 'admin-ajax.php' ),
+        wp_localize_script( 'dl-export', 'dl_object', array(
+            'ajaxUrl' => admin_url( 'admin-ajax.php' ),
+            'ajaxNonce' => wp_create_nonce( 'dl-export-nonce' ),
         ) );
         // import script
         wp_enqueue_script( 'dl-import', plugins_url( '../../assets/js/dl-import.js', __FILE__ ), array('jquery'), $version, true );

@@ -47,7 +47,8 @@ final class DataLinkeRFilters
         $post_types_array = array_merge($post_types_array, [
             'taxonomies' => 'Taxonomies',
             'users' => 'Users',
-            'comments' => 'Comments'
+            'comments' => 'Comments',
+            'menus' => 'Menus'
         ]);
     
         // Add the rest of the post types

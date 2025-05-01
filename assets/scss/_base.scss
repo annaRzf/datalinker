@@ -28,12 +28,36 @@ div.dl-main-content{
         border: 1px solid $grey-color;
         border-radius: 16px;
         box-shadow: 0px 1px 2px rgba(16, 24, 40, 0.1);
+        height: 100%;
     }
     .select2-container--default .select2-selection--single .select2-selection__rendered {
         color: $dark-grey-color;
         i {
             color: $green-color;
         }
+    }
+}
+.dl-spinner{
+    width: 31.4px;
+    height: 31.4px;
+    border-radius: 50%;
+    background: $green-color;
+    transform-origin: top;
+    display: grid;
+    animation: dl-spinner 1s infinite linear;
+    &::before,
+    &::after {
+        content: "";
+        grid-area: 1/1;
+        background: $secondary-color;
+        border-radius: 50%;
+        transform-origin: top;
+        animation: inherit;
+        animation-name: dl-spinner-1;
+    }
+    &::after {
+        background: $primary-color;
+        --s: 180deg;
     }
 }
 .select2-container {
@@ -62,6 +86,25 @@ div.dl-main-content{
 
     &::-webkit-scrollbar-thumb:hover {
         background-color: $grey-color; // Color of the scrollbar thumb on hover
+    }
+}
+@keyframes dl-spinner {
+    0%, 20% {
+       transform: rotate(0);
+    }
+ 
+    100% {
+       transform: rotate(360deg);
+    }
+}
+
+@keyframes dl-spinner-1 {
+    50% {
+        transform: rotate(var(--s,90deg));
+    }
+
+    100% {
+        transform: rotate(0);
     }
 }
     
